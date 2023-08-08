@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const API = 'https://strangers-things.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/';
 
-const Login = () => {
-	const [username, setUsername] = useState('');
+
+const Login = ({ token, setToken }) => {
+  const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const [token, setToken] = useState('');
+
+	const API = 'https://strangers-things.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/';
+	const navigate = useNavigate();
+
 
 	
-	const myData = async () => {
-
+	const myData = async (token) => {
 		try {
 			const response = await fetch(`${API}/users/me`, {
 				headers: {
@@ -18,7 +21,7 @@ const Login = () => {
 				},
 			});
 			const result = await response.json();
-			console.log('login', result);
+			console.log('mydata', result);
 			return result
 		} catch (error) {
 			console.error(error);
@@ -62,17 +65,16 @@ const Login = () => {
 				} })
 			});
 				const result = await response.json();
-				console.log(result);
+				console.log('loginUser', result);
 				alert(result.data.message);
 				setToken(result.data.token);
-				myData();
+				myData(result.data.token);
+				navigate('/home')
 				return result
 		} catch (error) {
 			console.error(error);
 		}
 }
-
-	console.log('token:', token)
 
   return (
 		<>

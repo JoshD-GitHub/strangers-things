@@ -1,6 +1,7 @@
 import PostsRender from "./components/PostsRender";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
+import AddPost from "./components/AddPost";
 import { useEffect, useState } from "react";
 import { Routes, Route } from 'react-router-dom';
 
@@ -9,18 +10,8 @@ const API = 'https://strangers-things.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/po
 
 
 const App = () => {
-  const [posts, setPosts] = useState(null);
-
-  useEffect(() => {
-    const fetchAPI = async () => {
-      const response = await fetch(API);
-      const data = await response.json();
-      setPosts(data.data.posts);
-    };
-    fetchAPI();
-  }, []);
-
-  console.log('posts', posts);
+	const [token, setToken] = useState('');
+  console.log('app token', token)
 
   return (
     <>
@@ -28,15 +19,13 @@ const App = () => {
       <Navbar />
 
       <Routes>
-        <Route path="/" element={posts ? <PostsRender posts={posts} /> : <h1>...</h1> } />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login token={token} setToken={setToken} />} />
+        <Route path="/home" element={<PostsRender token={token} />} />
+        <Route path="/addpost" element={<AddPost />} />
       </Routes>
 
-      
     </>
   );
 };
 
 export default App;
-
-
