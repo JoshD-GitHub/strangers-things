@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-const API = 'https://strangers-things.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/';
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQyODNjYWFhZjg3NTAwMTRmODdmMjciLCJ1c2VybmFtZSI6InR0IiwiaWF0IjoxNjkxNTE3OTA1fQ.XFit5eH0KVJq4AjuHYMe0q4LcE15849Uo2Qe6iQHCxg'
-
-const AddPost = () => {
+const AddPost = ({ token }) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState('');
 
+	const API = 'https://strangers-things.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/';
 	const navigate = useNavigate();
 	
-
 	const makePost = async () => {
 
     try {
@@ -36,13 +32,14 @@ const AddPost = () => {
 			navigate('/home')
       return result
     } catch (error) {
+			alert('You must be logged in!')
       console.error(error);
     }
   }
 
   return (
 		<>
-			<h1>test</h1>
+			<h1>Add Listing</h1>
 			<form>
 				Title:
 				<input value={title} onChange={(event) => setTitle(event.target.value)}/>

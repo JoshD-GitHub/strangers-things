@@ -1,0 +1,13 @@
+body {
+    background-color: darkcyan;
+}
+
+section {
+    border: solid black 2px;
+    margin: 5px;
+    text-align: center;
+}
+
+a {
+    margin-left: 10px;
+}

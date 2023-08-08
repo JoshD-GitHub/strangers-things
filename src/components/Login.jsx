@@ -9,8 +9,6 @@ const Login = ({ token, setToken }) => {
 
 	const API = 'https://strangers-things.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/';
 	const navigate = useNavigate();
-
-
 	
 	const myData = async (token) => {
 		try {

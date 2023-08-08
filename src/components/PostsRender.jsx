@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 
-
-
-
 const PostsRender = ({ token }) => {
   const [posts, setPosts] = useState(null);
   const API = 'https://strangers-things.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/posts';
   
-
   useEffect(() => {
     const fetchAPI = async () => {
       const response = await fetch(API);
@@ -39,15 +35,14 @@ const PostsRender = ({ token }) => {
     posts.map((post) => {
       return (
         <>
-          <h1>{post.title}</h1>
-          <ul>
-            <li>{post.price}</li>
-            <li>{post.author.username}</li>
-            <li>{post.description}</li>
-            <li>{post.location}</li>
-          </ul>
-          <button onClick={() => console.log(post._id)}>View Post</button>
-          <button onClick={() => deletePost(post._id)}>Delete Post</button>
+          <section>
+            <h1>{post.title}</h1>
+              <p><strong>Price: </strong>{post.price}</p>
+              <p><strong>Author: </strong>{post.author.username}</p>
+              <p><strong>Description: </strong>{post.description}</p>
+              <p><strong>Location: </strong>{post.location}</p>
+            <button onClick={() => deletePost(post._id)}>Delete Post</button>
+          </section>
         </>
       );
     }) : <h1>...</h1>
