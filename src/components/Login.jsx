@@ -7,6 +7,24 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [token, setToken] = useState('');
 
+	
+	const myData = async () => {
+
+		try {
+			const response = await fetch(`${API}/users/me`, {
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${token}`
+				},
+			});
+			const result = await response.json();
+			console.log('login', result);
+			return result
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 	const registerUser = async () => {
     try {
       const response = await fetch(`${API}/users/register`, {
@@ -22,10 +40,10 @@ const Login = () => {
         })
       });
       const result = await response.json();
-      setToken(result.data.token)
-      alert(result.data.message)
-    } catch (err) {
-      console.error(err);
+      setToken(result.data.token);
+      alert(result.data.message);
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -45,11 +63,12 @@ const Login = () => {
 			});
 				const result = await response.json();
 				console.log(result);
-				alert(result.data.message)
-
+				alert(result.data.message);
+				setToken(result.data.token);
+				myData();
 				return result
-		} catch (err) {
-			console.error(err);
+		} catch (error) {
+			console.error(error);
 		}
 }
 
